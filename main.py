@@ -10,22 +10,48 @@ from src.ui.display import center_txt
 from src.ui.menu import menu
 from src.ui.menu_area import menu_area
 from src.ui.menu_config import json_config, json_config_reset
-from src.auth.login import login
-from src.ui.terminal import clear_lines
+from src.utils.cli_commands import create_cli, help_flags_cli
 
 app = typer.Typer()
-load_dotenv()
+load_dotenv()    
 
 @app.command()
 def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs")):
+    
+    '''
+        Open the user settings (JSON) 
+    '''
+    
     if reset:
         json_config_reset()
     else:
         json_config()
 
+@app.command()
+def path():
+    print(os.getcwd())
+
+@app.command()
+def create(
+    type: str = typer.Option("default", "--type"),
+    tech: str = typer.Option("default", "--tech"),
+    path: str = typer.Option(os.getcwd(), "--path")
+):
+    
+    """
+        Create a structure project
+    """
+    
+    create_cli(type, tech, path)
 
 @app.callback(invoke_without_command=True)
-def main(ctx: typer.Context):
+def main(
+    ctx: typer.Context,
+    flags: bool = typer.Option(False, "--flags")
+         ):
+    if flags:
+        help_flags_cli()
+        return
     
     if ctx.invoked_subcommand is not None:
         return
