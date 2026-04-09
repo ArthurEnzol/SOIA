@@ -3,5 +3,4 @@ rich
 bcrypt
 InquirerPy
 psutil
-threading
-webbrowser
+google-genai
