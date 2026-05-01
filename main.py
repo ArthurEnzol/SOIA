@@ -11,6 +11,7 @@ from src.ui.menu import menu
 from src.ui.menu_area import menu_area
 from src.ui.menu_config import json_config, json_config_reset
 from src.utils.cli_commands import create_cli, help_flags_cli
+from src.core.soia_IA import soia_prompt
 
 app = typer.Typer()
 load_dotenv()    
@@ -29,7 +30,20 @@ def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs
 
 @app.command()
 def path():
+    '''
+        Show the origin directory
+    '''
     print(os.getcwd())
+
+@app.command()
+def prompt(
+    r: str = typer.Option("default", "-r")
+):
+    '''
+        The IA prompt
+    '''
+
+    soia_prompt(r)
 
 @app.command()
 def create(
@@ -47,11 +61,12 @@ def create(
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
-    flags: bool = typer.Option(False, "--flags")
+    flags: bool = typer.Option(False, "--flags"),
          ):
     if flags:
         help_flags_cli()
         return
+
     
     if ctx.invoked_subcommand is not None:
         return

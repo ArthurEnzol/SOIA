@@ -10,6 +10,10 @@ from src.core.constants import (
 """Cria a estrutura base do frontend"""
 def frontend_base(path: str):
   base = Path(path)
+
+  '''
+    Create a base structure from a basic frontend project
+  '''
   
   """Cria as pastas"""
   (base / "css").mkdir(parents=True, exist_ok=True)
@@ -23,6 +27,11 @@ def frontend_base(path: str):
   (base / "js/script.js").write_text(JS_TEMPLATE)
 
 def frontend_react(path: str):
+
+    """
+        Create a frontend project structure with react
+    """
+
     base = Path(path)
     
     folders = [
@@ -49,6 +58,11 @@ def frontend_react(path: str):
     (base / "src/index.css").write_text(REACT_INDEX_CSS, encoding="utf-8")
 
 def frontend_typescript(path: str):
+
+    """
+        Create a frontend project structure with typescript
+    """
+    
     base = Path(path)
     
     folders = [
@@ -78,6 +92,10 @@ def frontend_typescript(path: str):
     
 def frontend_nextjs(path: str):
     base = Path(path)
+
+    """
+        Create a frontend project structure with nextJS
+    """
     
     folders = [
         "public/assets",

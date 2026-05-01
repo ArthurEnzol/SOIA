@@ -59,6 +59,7 @@ def system_info():
     clear_lines(18)
     return
 
+
 def project_builer_menu():
     
     def path_name():

@@ -4,3 +4,5 @@ bcrypt
 InquirerPy
 psutil
 google-genai
+typer
+youtube_dl
