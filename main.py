@@ -11,6 +11,7 @@ from src.ui.menu import menu
 from src.ui.menu_area import menu_area
 from src.ui.menu_config import json_config, json_config_reset
 from src.utils.cli_commands import create_cli, help_flags_cli
+from src.utils.infosystem_cmd import run_infosystem_live
 from src.core.soia_IA import soia_prompt
 
 app = typer.Typer()
@@ -34,6 +35,23 @@ def path():
         Show the origin directory
     '''
     print(os.getcwd())
+
+
+@app.command("infosystem")
+def infosystem():
+    '''
+        Painel animado com todas as informações do sistema (atualiza a cada 0,5 s; Enter para sair).
+    '''
+    run_infosystem_live()
+
+
+@app.command("system-info")
+def system_info_screen():
+    '''
+        Alias de infosystem: mesmo painel ao vivo com métricas do sistema.
+    '''
+    run_infosystem_live()
+
 
 @app.command()
 def prompt(
@@ -83,7 +101,7 @@ def main(
                 if not menu_area():
                     break
 
-    input("\nPressione ENTER para fechar o bot...")
+    input("\nPressione ENTER para encerrar...")
     
 
 if __name__ == "__main__":
