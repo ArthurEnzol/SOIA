@@ -1,6 +1,25 @@
 {
-    "language": "pt-br"
-}{
-    "language": "pt-br",
-    "system": "Linux"
+    "settings": {
+        "system": "Linux",
+        "language": "pt-br",
+        "ignore_dirs": [
+            ".git",
+            "__pycache__",
+            "node_modules",
+            ".venv",
+            ".venv",
+            "$RECYCLE.BIN",
+            "System Volume Information",
+            ".DS_Store",
+            "Trash"
+        ]
+    },
+    "commands": {
+        "env_name": "venv",
+        "initial_directory": "/"
+    },
+    "git": {
+        "default_branch": "main",
+        "auto_add_all": false
+    }
 }
