@@ -72,7 +72,8 @@ def git(
     commit: Optional[str] = typer.Option(None, "--commit", "-c", help= "Commit"),
     push: bool = typer.Option(None, "--push", "-p", help="Push files to repository"),
     status: bool = typer.Option(None, "--status", "-s", help= "Show the files modified"),
-    branch: Optional[str] = typer.Option(None, "--branch", "-b", help= "Select your branch for commit")
+    branch: Optional[str] = typer.Option(None, "--branch", "-b", help= "Select your branch for commit"),
+    clone: Optional[str] = typer.Option(None, "--clone", "-cr", help="Clone a GitHub repository")
 ):
     '''
         Git commands (init, add, commit, push, branch)
@@ -90,12 +91,14 @@ def git(
     if commit:
         os.system(f'git commit -m "{commit}"')
     if push:
-        remote_branch = branch if branch != None else "main"
+        remote_branch = branch if branch != None else get_config("settings", "default_branch")
         os.system(f'git push origin "{remote_branch}"')
     if branch:
         os.system(f'git branch {branch if branch else "main"}')
     if status:
         os.system(f'git status')
+    if clone:
+        os.system(f"git clone {clone}")
     
 
 @app.command()
