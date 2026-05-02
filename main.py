@@ -91,7 +91,7 @@ def git(
     if commit:
         os.system(f'git commit -m "{commit}"')
     if push:
-        remote_branch = branch if branch != None else get_config("settings", "default_branch")
+        remote_branch = branch if branch != None else get_config("git", "default_branch")
         os.system(f'git push origin "{remote_branch}"')
     if branch:
         os.system(f'git branch {branch if branch else "main"}')
