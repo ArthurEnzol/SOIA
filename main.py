@@ -39,8 +39,8 @@ def git(
     add: Optional[str] = typer.Option(False, "--add", "-a"),
     commit: Optional[str] = typer.Option(False, "--commit", "-c"),
     push: bool = typer.Option(False, "--push", "-p"),
-    branch: Optional[str] = typer.Option("main", "--branch", "-b"),
     status: bool = typer.Option(False, "--status", "-s"),
+    branch: Optional[str] = typer.Option(False, "--branch", "-b")
 ):
     '''
         Git commands (init, add, commit, push, branch)
@@ -52,9 +52,8 @@ def git(
     if commit:
         os.system(f'git commit -m "{commit}"')
     if push:
+        print(branch)
         os.system(f'git push origin "{branch}"')
-    if branch:
-        os.system(f'git branch {branch if branch else "main"}')
     if status:
         os.system(f'git status')
 
