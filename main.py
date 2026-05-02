@@ -1,5 +1,7 @@
 import os
 import sys
+from pathlib import Path
+
 import typer
 from dotenv import load_dotenv
 
@@ -32,9 +34,13 @@ def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs
 @app.command()
 def path():
     '''
-        Show the origin directory
+        Mostra o diretório de trabalho atual (cwd) e a pasta raiz do SOIA.
+        Caminhos absolutos e resolvidos — compatível com Linux, macOS e Windows.
     '''
-    print(os.getcwd())
+    cwd = Path.cwd().resolve()
+    root = load_directory().resolve()
+    print(f"Diretório atual: {cwd}")
+    print(f"Projeto SOIA:   {root}")
 
 
 @app.command("infosystem")
