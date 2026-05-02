@@ -116,3 +116,4 @@ def frontend_nextjs(path: str):
     (base / "package.json").write_text(NEXT_PACKAGE_JSON)
     (base / "next.config.js").write_text(NEXT_CONFIG)
     (base / "tailwind.config.js").write_text(TAILWIND_CONFIG, encoding="utf-8")
+

@@ -32,6 +32,31 @@ def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs
         json_config()
 
 @app.command()
+def git(
+    init: bool = typer.Option(False, "--init", "-i"),
+    add: str = typer.Option(".", "--add", "-a"),
+    commit: str = typer.Option("Update", "--commit", "-c"),
+    push: bool = typer.Option(False, "--push", "-p"),
+    branch: str = typer.Option("main", "--branch", "-b"),
+    status: bool = typer.Option(False, "--status", "-s"),
+):
+    '''
+        Git commands (init, add, commit, push, branch)
+    '''
+    if init:
+        os.system(f'git init')
+    if add:
+        os.system(f'git add {add}')
+    if commit:
+        os.system(f'git commit -m "{commit}"')
+    if push:
+        os.system(f'git push origin "{branch}"')
+    if branch:
+        os.system(f'git branch {branch}')
+    if status:
+        os.system(f'git status')
+
+@app.command()
 def path():
     '''
         Mostra o diretório de trabalho atual (cwd) e a pasta raiz do SOIA.
