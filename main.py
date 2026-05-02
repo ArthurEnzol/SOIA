@@ -3,7 +3,9 @@ import sys
 from pathlib import Path
 
 import typer
+from typing import Optional
 from dotenv import load_dotenv
+
 
 from src.core.constants import SOIA_LOGO
 from src.core.loader import load_project
@@ -33,11 +35,11 @@ def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs
 
 @app.command()
 def git(
-    init: bool = typer.Option(False, "--init", "-i"),
-    add: str = typer.Option(".", "--add", "-a"),
-    commit: str = typer.Option("Update", "--commit", "-c"),
+    init: Optional[str] = typer.Option(False, "--init", "-i"),
+    add: Optional[str] = typer.Option(False, "--add", "-a"),
+    commit: Optional[str] = typer.Option(False, "--commit", "-c"),
     push: bool = typer.Option(False, "--push", "-p"),
-    branch: str = typer.Option("main", "--branch", "-b"),
+    branch: Optional[str] = typer.Option("main", "--branch", "-b"),
     status: bool = typer.Option(False, "--status", "-s"),
 ):
     '''
@@ -52,7 +54,7 @@ def git(
     if push:
         os.system(f'git push origin "{branch}"')
     if branch:
-        os.system(f'git branch {branch}')
+        os.system(f'git branch {branch if branch else "main"}')
     if status:
         os.system(f'git status')
 
