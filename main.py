@@ -22,7 +22,7 @@ app = typer.Typer()
 load_dotenv()    
 
 @app.command()
-def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs")):
+def config(reset: bool = typer.Option(False, "--reset", "-r", help="Reset your configs")):
     
     '''
         Open the user settings (JSON) 
@@ -35,12 +35,12 @@ def config(reset: bool = typer.Option(False, "--reset", help="Reset your configs
 
 @app.command()
 def git(
-    init: Optional[str] = typer.Option(False, "--init", "-i"),
-    add: Optional[str] = typer.Option(False, "--add", "-a"),
-    commit: Optional[str] = typer.Option(False, "--commit", "-c"),
-    push: bool = typer.Option(False, "--push", "-p"),
-    status: bool = typer.Option(False, "--status", "-s"),
-    branch: Optional[str] = typer.Option(False, "--branch", "-b")
+    init: bool = typer.Option(None, "--init", "-i", help= "Initialize de git repository"),
+    add: Optional[str] = typer.Option(None, "--add", "-a", help= "Add files on commit"),
+    commit: Optional[str] = typer.Option(None, "--commit", "-c", help= "Commit"),
+    push: bool = typer.Option(None, "--push", "-p", help="Push files to repository"),
+    status: bool = typer.Option(None, "--status", "-s", help= "Show the files modified"),
+    branch: Optional[str] = typer.Option(None, "--branch", "-b", help= "Select your branch for commit")
 ):
     '''
         Git commands (init, add, commit, push, branch)
@@ -52,16 +52,18 @@ def git(
     if commit:
         os.system(f'git commit -m "{commit}"')
     if push:
-        print(branch)
-        os.system(f'git push origin "{branch}"')
+        remote_branch = branch if branch != None else "main"
+        os.system(f'git push origin "{remote_branch}"')
+    if branch:
+        os.system(f'git branch {branch if branch else "main"}')
     if status:
         os.system(f'git status')
+    
 
 @app.command()
 def path():
     '''
         Mostra o diretório de trabalho atual (cwd) e a pasta raiz do SOIA.
-        Caminhos absolutos e resolvidos — compatível com Linux, macOS e Windows.
     '''
     cwd = Path.cwd().resolve()
     root = load_directory().resolve()
@@ -111,11 +113,7 @@ def create(
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
-    flags: bool = typer.Option(False, "--flags"),
-         ):
-    if flags:
-        help_flags_cli()
-        return
+):
 
     
     if ctx.invoked_subcommand is not None:
