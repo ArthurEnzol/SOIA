@@ -2,6 +2,7 @@ import os
 import platform
 import sys
 import typer
+import subprocess
 
 
 from pathlib import Path
@@ -14,7 +15,7 @@ from src.utils.get_config import get_config
 from src.utils.config_handler import ensure_config
 from src.core.constants import SOIA_LOGO
 from src.core.loader import load_project
-from src.utils.directory import load_directory, search_path_file 
+from src.utils.directory import install_ollama_model, load_directory, search_path_file 
 from src.ui.display import center_txt
 from src.ui.menu import menu
 from src.ui.menu_area import menu_area
@@ -151,18 +152,43 @@ def create(
     
     create_cli(type, tech, path)
 
+@app.command
+def install(
+    install: Optional[bool] = typer.Option(False, "--install", "-i"),
+    ollama: Optional[bool] = typer.Option(False, "--ollama", "-o"),
+    webui: Optional[bool] = typer.Option(False, "--webuai", "-w")
+):
+    system = get_config("settings", "system")
+    if install:
+        if ollama:
+            match system:
+                case "Linux":
+                    subprocess.run("curl -fsSL https://ollama.com/install.sh | sh")
+                case "Darwin":
+                    subprocess.run("curl -fsSL https://ollama.com/install.sh | sh")
+                case "Windows":
+                    subprocess.run("irm https://ollama.com/install.ps1 | iex")
+            install_ollama_model("llama3.1:8b")
+        if webui:
+            match system:
+                case "Linux":
+                    subprocess.run("docker run -d --network=host -v open-webui:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui --restart always ghcr.io/open-webui/open-webui:main")
+
+            
+
 @app.callback(invoke_without_command=True)
 def main(
     ctx: typer.Context,
 ):
-
     ensure_config()
-    
+
+
+
     if ctx.invoked_subcommand is not None:
         return
     os.system('cls' if os.name == 'nt' else 'clear')
     
-    ensure_config()
+    
     center_txt(SOIA_LOGO)
     load_project(load_directory())
 
