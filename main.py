@@ -69,19 +69,28 @@ def env(
 @app.command()
 def git(
     init: bool = typer.Option(None, "--init", "-i", help= "Initialize de git repository"),
-    add: Optional[str] = typer.Option(None, "--add", "-a", help= "Add files on commit"),
+    add: Optional[str] = typer.Option(None, "--add", "-a", help= "Add files on commit or a remote repository"),
     commit: Optional[str] = typer.Option(None, "--commit", "-c", help= "Commit"),
     push: bool = typer.Option(None, "--push", "-p", help="Push files to repository"),
     status: bool = typer.Option(None, "--status", "-s", help= "Show the files modified"),
     branch: Optional[str] = typer.Option(None, "--branch", "-b", help= "Select your branch for commit"),
-    clone: Optional[str] = typer.Option(None, "--clone", "-cr", help="Clone a GitHub repository")
+    clone: Optional[str] = typer.Option(None, "--clone", "-cr", help="Clone a GitHub repository"),
+    remote: Optional[bool] = typer.Option(None, "--remote", "-r", help="Remote github repository"),
+    version: Optional[bool] = typer.Option(None, "--version", "-v", help="Get a version")
 ):
     '''
         Git commands (init, add, commit, push, branch)
     '''
     abs_path = os.getcwd()
 
+    if remote:
+        if version:
+            return subprocess.run("git remote -v")
+        if add:
+            return subprocess.run(f"git remote add {add}")
+
     if init:
+        print(f"Diretório acessado: {abs_path}")
         try:
             os.chdir(abs_path)
             subprocess.run(f"cd '{abs_path}'")
