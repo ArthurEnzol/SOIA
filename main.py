@@ -154,8 +154,8 @@ def create(
 
 @app.command
 def install(
-    ollama: Optional[bool] = typer.Option(False, "--ollama", "-o"),
-    webui: Optional[bool] = typer.Option(False, "--webuai", "-w")
+    ollama: Optional[bool] = typer.Option(False, "--ollama", "-o", help="Install the Ollama Local AI"),
+    webui: Optional[bool] = typer.Option(False, "--webuai", "-w", help="Install the WebUAI")
 ):
     
     """
