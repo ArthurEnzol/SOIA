@@ -5,3 +5,6 @@ InquirerPy
 psutil
 typer
 colorist
+requests
+tqdm
+ollama
