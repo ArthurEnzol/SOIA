@@ -79,8 +79,11 @@ def git(
     '''
         Git commands (init, add, commit, push, branch)
     '''
+    abs_path = os.getcwd()
+
     if init:
-        os.system(f'git init')
+        subprocess.run(f"cd '{abs_path}'")
+        subprocess.run(f'git init')
     if add:
         current_os = get_config("settings", "system")
         if current_os == "Windows":
@@ -88,18 +91,18 @@ def git(
         else: 
             initial_directory = "/"
         path_file = search_path_file(add, initial_directory)   
-        os.system(f"git add '{path_file}'")
+        subprocess.run(f"git add '{path_file}'")
     if commit:
-        os.system(f'git commit -m "{commit}"')
+        subprocess.run(f'git commit -m "{commit}"')
     if push:
         remote_branch = branch if branch != None else get_config("git", "default_branch")
-        os.system(f'git push origin "{remote_branch}"')
+        subprocess.run(f'git push origin "{remote_branch}"')
     if branch:
-        os.system(f'git branch {branch if branch else "main"}')
+        subprocess.run(f'git branch {branch if branch else "main"}')
     if status:
-        os.system(f'git status')
+        subprocess.run(f'git status')
     if clone:
-        os.system(f"git clone {clone}")
+        subprocess.run(f"git clone {clone}")
     
 
 @app.command()
