@@ -157,6 +157,11 @@ def install(
     ollama: Optional[bool] = typer.Option(False, "--ollama", "-o"),
     webui: Optional[bool] = typer.Option(False, "--webuai", "-w")
 ):
+    
+    """
+        Install the AI dependeces
+    """
+
     system = get_config("settings", "system")
     if install:
         if ollama:
