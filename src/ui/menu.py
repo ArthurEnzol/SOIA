@@ -105,6 +105,7 @@ def menu():
                         subprocess.run("start https://github.com/ArthurEnzol/SOIA")
                     case "Darwin":
                         subprocess.run("open -a 'Google Chrome' https://github.com/ArthurEnzol/SOIA")
+                        
                 sleep(2.5)
                 clear_lines(2)
             elif option[0] == "Suporte":
