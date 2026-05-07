@@ -1,6 +1,7 @@
 import json
 import platform
 import subprocess
+import os
 
 from pathlib import Path
 from src.utils.directory import install_ollama_model
