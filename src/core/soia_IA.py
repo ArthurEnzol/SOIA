@@ -1,16 +1,18 @@
 import ollama
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 import json
 
 # Configurações de caminhos
-MEMORY_FILE = "soia_memory.json"
-COMMANDS_DIR = "commands/scripts"
-DOWNLOADS_DIR = "commands/downloads"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+MEMORY_FILE = PROJECT_ROOT / "soia_memory.json"
+COMMANDS_DIR = PROJECT_ROOT / "commands" / "scripts"
+DOWNLOADS_DIR = PROJECT_ROOT / "commands" / "downloads"
 
 # Garante que as pastas existam na raiz do projeto
-os.makedirs(COMMANDS_DIR, exist_ok=True)
-os.makedirs(DOWNLOADS_DIR, exist_ok=True)
+COMMANDS_DIR.mkdir(parents=True, exist_ok=True)
+DOWNLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
 load_dotenv()
 
@@ -18,9 +20,9 @@ load_dotenv()
 # from src.utils.project_builder import frontend_base, frontend_nextjs, frontend_react, frontend_typescript
 
 def load_existents_scripts():
-    if not os.path.exists(COMMANDS_DIR):
+    if not COMMANDS_DIR.exists():
         return ""
-    scripts = os.listdir(COMMANDS_DIR)
+    scripts = sorted(path.name for path in COMMANDS_DIR.iterdir() if path.is_file())
     if not scripts:
         return ""
     skills_list = "\nVocê já possui estes scripts prontos na pasta commands/scripts/:\n"
@@ -83,33 +85,39 @@ executar()
 """
 
 def load_memory():
-    if os.path.exists(MEMORY_FILE):
+    if MEMORY_FILE.exists():
         try: 
-            with open(MEMORY_FILE, 'r') as f:
+            with open(MEMORY_FILE, 'r', encoding="utf-8") as f:
                 return json.load(f)
         except:
             return {}
     return {}
 
+def make_safe_filename(text):
+    slug = "".join(char if char.isalnum() else "_" for char in text.lower())
+    slug = "_".join(part for part in slug.split("_") if part)
+    return (slug[:50] or "script_soia")
+
 def save_memory(command, logic, file_name=None):
     # Salva no JSON
     memory = load_memory()
     memory[command] = logic
-    with open(MEMORY_FILE, 'w') as f:
-        json.dump(memory, f, indent=2)
+    with open(MEMORY_FILE, 'w', encoding="utf-8") as f:
+        json.dump(memory, f, ensure_ascii=False, indent=2)
     
     # Salva o arquivo .py físico se um nome for fornecido
     if file_name:
-        path = os.path.join(COMMANDS_DIR, f"{file_name}.py")
-        with open(path, 'w') as f:
+        COMMANDS_DIR.mkdir(parents=True, exist_ok=True)
+        path = COMMANDS_DIR / f"{make_safe_filename(file_name)}.py"
+        with open(path, 'w', encoding="utf-8") as f:
             f.write(logic)
-        return path
+        return str(path)
     return None
 
 def soia(prompt: str):
     try:
         response = ollama.chat(
-            model="qwen3.5:4b",
+            model="llama3.1:8b",
             messages=[
                 {'role': 'system', 'content': skills},
                 {'role': 'user', 'content': prompt}
@@ -151,7 +159,7 @@ def soia_prompt(prompt: str):
               print(execute_dinamic_code(codigo))
               
               # Define um nome para o arquivo baseado no input ou pede ao usuário
-              nome_slug = user_input.lower().replace(" ", "_")[:20]
+              nome_slug = make_safe_filename(user_input)
               caminho = save_memory(user_input.lower(), codigo, file_name=nome_slug)
               
               print(f"Soia: Conhecimento salvo em {caminho} e na memória principal.")
