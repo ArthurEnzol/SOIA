@@ -1,6 +1,9 @@
 import json
 import platform
+import subprocess
+
 from pathlib import Path
+from directory import install_ollama_model
 
 path = Path(__file__).cwd() / "config.json"
 path_default_config = Path(__file__).cwd() / "default_config.json"
@@ -11,8 +14,10 @@ def ensure_config():
 
   if current_os == "Windows":
     initial_directory = "C://"
+    subprocess.run("irm https://ollama.com/install.ps1 | iex")
   elif current_os == "Darwin" or "Linux":
     initial_directory = "/"
+    subprocess.run("curl -fsSL https://ollama.com/install.sh | sh")
   else:
     initial_directory = "Not found"
 
