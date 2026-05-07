@@ -3,7 +3,7 @@ import platform
 import subprocess
 
 from pathlib import Path
-from directory import install_ollama_model
+from src.utils.directory import install_ollama_model
 
 path = Path(__file__).cwd() / "config.json"
 path_default_config = Path(__file__).cwd() / "default_config.json"
@@ -20,6 +20,8 @@ def ensure_config():
     subprocess.run("curl -fsSL https://ollama.com/install.sh | sh")
   else:
     initial_directory = "Not found"
+
+  install_ollama_model("llama3.1:8b")
 
   if not path.exists() and not path_default_config.exists():
     default_config = {
