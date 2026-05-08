@@ -13,16 +13,6 @@ def ensure_config():
   
   current_os = platform.system()
 
-  if current_os == "Windows":
-    initial_directory = "C://"
-    subprocess.run("irm https://ollama.com/install.ps1 | iex", shell=True)
-  elif current_os == "Darwin" or "Linux":
-    initial_directory = "/"
-    subprocess.run("curl -fsSL https://ollama.com/install.sh | sh", shell=True)
-  else:
-    initial_directory = "Not found"
-
-  install_ollama_model("llama3.1:8b")
 
   if not path.exists() and not path_default_config.exists():
     default_config = {
@@ -39,6 +29,16 @@ def ensure_config():
         "auto_add_all": False
       }
     }
+    if current_os == "Windows":
+      initial_directory = "C://"
+      subprocess.run("irm https://ollama.com/install.ps1 | iex", shell=True)
+    elif current_os == "Darwin" or "Linux":
+      initial_directory = "/"
+      subprocess.run("curl -fsSL https://ollama.com/install.sh | sh", shell=True)
+    else:
+      initial_directory = "Not found"
+
+    install_ollama_model("llama3.1:8b")
 
     
     with open(path_default_config, "w", encoding="utf-8") as file:
