@@ -125,9 +125,13 @@ def soia(prompt: str):
             ]
         )
         return response['message']['content']
-    except ValueError:
-        subprocess.run("ollama pull llama3.1:8b")
     except Exception as e:
+        if "404" in str(e) or "not found" in str(e).lower():
+            try:
+                subprocess.run("ollama pull llama3.1:8b")
+            except Exception as e:
+                return f"Error: {e}"
+            
         return f"Error: {e}"
 
 def execute_dinamic_code(code: str):
