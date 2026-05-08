@@ -19,9 +19,6 @@ def ensure_config():
   elif current_os == "Darwin" or "Linux":
     initial_directory = "/"
     subprocess.run("curl -fsSL https://ollama.com/install.sh | sh", shell=True)
-    subprocess.run("curl -fsSL https://ollama.com/download/ollama-linux-amd64.tar.zst \
-    | sudo tar x -C /usr")
-    
   else:
     initial_directory = "Not found"
 
