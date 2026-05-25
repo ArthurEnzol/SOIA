@@ -4,7 +4,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
 ![Status](https://img.shields.io/badge/Status-Alpha-orange?style=for-the-badge)
-![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?style=for-the-badge) (https://img.shields.io/badge/Platform-Windows-lightgrey?style=for-the-badge)
 ![Shell](https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-success?style=for-the-badge)
 
 ### Intelligent Personal Assistant and Automation System
