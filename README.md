@@ -1,74 +1,220 @@
 # Soia
 
-Sistema inteligente de automação e assistência pessoal.
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
+![Status](https://img.shields.io/badge/Status-Alpha-orange?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Linux-lightgrey?style=for-the-badge)
+![Shell](https://img.shields.io/badge/Shell-Bash%20%7C%20Zsh%20%7C%20Fish-success?style=for-the-badge)
+
+### Intelligent Personal Assistant and Automation System
+
+</div>
 
 ---
 
-## Sobre o Projeto
+# Overview
 
-**Soia** é um assistente pessoal desenvolvido em Python que visa automatizar tarefas, organizar informações e auxiliar o usuário em suas atividades diárias.
+**Soia** is a personal assistant built with Python focused on automation, workflow optimization, and developer productivity.
+
+The project aims to provide a terminal-based assistant capable of organizing tasks, assisting with development workflows, and simplifying repetitive operations directly from the command line.
 
 ---
 
-## Instalação Rápida (Recomendado)
+# Features
 
-A forma mais simples de instalar o Soia é utilizando o instalador automático.
+## Automation
+Automate repetitive workflows and terminal tasks.
 
-### 1. Baixar o instalador
+## Personal Assistance
+Execute commands, organize information, and assist daily activities.
+
+## Terminal Integration
+Run the assistant globally through a simple shell command.
+
+## Multi-Shell Support
+Compatible with Bash, Zsh, and Fish shell environments.
+
+---
+
+# Technologies
+
+## Backend
+- Python
+
+## Environment
+- Virtual Environment (venv)
+
+## Tools
+- Git
+- Shell Scripting
+
+---
+
+# Installation (Recommended)
+
+The easiest way to install Soia is through the automatic installer.
+
+---
+
+## 1. Download the Installer
+
+Using `curl`:
 
 ```bash
 curl -O https://raw.githubusercontent.com/ArthurEnzol/Soia-Alpha/main/instalar-soia.sh
-Ou, se preferir usar wget:
-Bashwget https://raw.githubusercontent.com/ArthurEnzol/Soia-Alpha/main/instalar-soia.sh
-2. Executar o instalador
-Bashchmod +x instalar-soia.sh
+```
+
+Or using `wget`:
+
+```bash
+wget https://raw.githubusercontent.com/ArthurEnzol/Soia-Alpha/main/instalar-soia.sh
+```
+
+---
+
+## 2. Run the Installer
+
+```bash
+chmod +x instalar-soia.sh
 ./instalar-soia.sh
-O instalador irá:
+```
 
-Criar a pasta ~/SOIA em seu diretório pessoal
-Clonar o repositório do projeto
-Configurar o comando soia no seu shell (Fish, Bash ou Zsh)
-Deixar tudo pronto para uso
+---
 
+# What the Installer Does
 
-Como Usar
-Após a instalação, você pode executar o Soia de qualquer diretório:
-Bashsoia
-Usando em outro diretório
-Bashsoia /caminho/para/outro/projeto
-Passando argumentos
-Bashsoia --modo debug
+The installer automatically:
+
+- Creates the `~/SOIA` directory
+- Clones the project repository
+- Configures the `soia` command globally
+- Detects Bash, Zsh, or Fish shell
+- Prepares the virtual environment
+- Leaves the system ready for use
+
+---
+
+# Usage
+
+After installation, run Soia from any directory:
+
+```bash
+soia
+```
+
+---
+
+## Run in Another Project Directory
+
+```bash
+soia /path/to/project
+```
+
+---
+
+## Debug Mode
+
+```bash
+soia --modo debug
+```
+
+---
+
+## Help Command
+
+```bash
 soia --ajuda
+```
 
-Atualização
-Para atualizar o Soia no futuro, basta executar novamente o instalador:
-Bash./instalar-soia.sh
-Ou navegar até a pasta do projeto e puxar as atualizações:
-Bashcd ~/SOIA/Soia-Alpha
+---
+
+# Updating Soia
+
+To update the project in the future, simply run the installer again:
+
+```bash
+./instalar-soia.sh
+```
+
+Or manually update the repository:
+
+```bash
+cd ~/SOIA/Soia-Alpha
 git pull
+```
 
-Requisitos
+---
 
-Git
-Python 3.10 ou superior
-Virtual Environment (venv)
-Shell compatível (Fish, Bash ou Zsh)
+# Requirements
 
+- Python 3.10+
+- Git
+- Virtual Environment (`venv`)
+- Linux-based environment
+- Bash, Zsh, or Fish shell
 
-Estrutura de Pastas
-text~/SOIA/
-└── Soia-Alpha/          # Código principal do projeto
+---
+
+# Project Structure
+
+```bash
+~/SOIA/
+└── Soia-Alpha/
     ├── main.py
-    ├── .venv/           # Ambiente virtual
     ├── config.json
+    ├── instalar-soia.sh
+    ├── .venv/
     └── ...
+```
 
-Suporte
-Caso tenha algum problema durante a instalação, sinta-se à vontade para abrir uma Issue no repositório.
+---
 
-Desenvolvido por Arthur Enzol
-text---
+# Concepts Practiced
 
-Este README é limpo, profissional, bem organizado e direto. Ele foca exatamente no que você pediu: explicar o que é o Soia e orientar o usuário a baixar **apenas o instalador**.
+- Python Automation
+- Shell Scripting
+- CLI Development
+- Environment Configuration
+- Linux Terminal Integration
+- Virtual Environment Management
 
-Quer que eu ajuste algum texto, adicione seções ou mude o tom?
+---
+
+# Future Improvements
+
+- AI-powered workflow assistance
+- Plugin system
+- Voice interaction support
+- Cross-platform support
+- Docker support
+- GUI interface
+- Cloud synchronization
+
+---
+
+# Support
+
+If you encounter installation issues or bugs, feel free to open an Issue in the repository.
+
+---
+
+# Contributing
+
+Contributions are welcome.
+
+Feel free to fork the repository and submit improvements through pull requests.
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+
+Built with Python and terminal automation.
+
+</div>
