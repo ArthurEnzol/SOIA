@@ -103,7 +103,7 @@ def git(
         else: 
             initial_directory = "/"
         path_file = search_path_file(add, initial_directory)   
-        subprocess.run(f"git add '{path_file}'")
+        subprocess.run(f"git add {path_file}")
     if commit:
         subprocess.run(f'git commit -m "{commit}"')
     if push:
